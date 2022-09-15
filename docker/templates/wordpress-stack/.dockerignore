@@ -1,0 +1,4 @@
+.env
+.git
+slack_url.tmpl
+.dockerignore

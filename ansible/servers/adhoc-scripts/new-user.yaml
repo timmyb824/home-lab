@@ -1,0 +1,39 @@
+- name: Create user on a linux server - use 'remoter' to create user who doesn't have to use sudo
+  hosts: all
+  gather_facts: false
+  vars:
+    - user: username
+  # created with:
+  # python -c 'import crypt; print(crypt.crypt("password", "$3$SomeSalt$"))'
+  # above command requires the PassLib library: pip install passlib
+    - password: $3$$11111111111122222222233333333333333
+  tasks:
+    - name: Create a login user
+      become: yes
+      user:
+        name: "{{ user }}"
+        password: "{{ password }}"
+        groups:
+          - sudo
+        shell: /bin/bash
+        state: present
+    - name: Add public key to authorized_keys
+      become: yes
+      authorized_key:
+        user: "{{ user }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa_key.pub') }}"
+    - name: Creating a file with content
+      become: yes
+      when: user == "remoter"
+      file:
+        path: "/etc/sudoers.d/remoter"
+        state: touch
+    - name: Add {{ user }} to sudoers file
+      become: yes
+      when: user == "remoter"
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers.d/remoter
+        regexp: '^{{ user }}'
+        line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
