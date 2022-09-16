@@ -1,4 +1,4 @@
 ---
 # defaults file for python
 PYTHON_VERSION: 3.10.2
-USER: ansibleuser
+USER: "{{ ansible_user }}"
