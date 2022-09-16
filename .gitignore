@@ -1,4 +1,5 @@
 .env
+.envrc
 
 docker/templates/dashy/config.yaml
 docker/templates/dashy/item-icons/
@@ -8,14 +9,15 @@ docker/templates/nginx-proxy-manager/data/
 docker/templates/nginx-proxy-manager/letsencrypt/
 docker/templates/prometheus-stack/alertmanager/slack_urls
 
-kubernetes/manifests/prometheus-operator/admin-password
-kubernetes/manifests/prometheus-operator/admin-user
-
 .terraform*
 plan
 *.tfstate
 *.tfvars
 
-ansible/hosts/hosts.md
 ansible/servers/inventory.ini
 ansible/.python-version
+
+*.retry
+*/__pycache__
+*.pyc
+.cache
