@@ -4,7 +4,7 @@
 # Whether to install or uninstall Tailscale. Either 'present' or 'absent'
 state: present
 # Required Node auth key to authenticate to Tailscale
-tailscale_authkey: tskey-some-auth-key-here
+tailscale_authkey: "{{ lookup('env','TAILSCALE_AUTHKEY') }}"
 # Optional command-line arguments for 'tailscale up'
 tailscale_args: null
 # Whether to output debug information during role execution

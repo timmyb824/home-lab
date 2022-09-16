@@ -1,0 +1,14 @@
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install nice to have packages
+      become: true
+      apt:
+          - htop
+          - jq
+          - bat
+          - cpu-checker
+          - magic-wormhole
+          - silversearcher-ag
+        state: present
+        force_apt_get: yes

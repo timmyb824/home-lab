@@ -4,9 +4,10 @@
   vars:
     - user: username
   # created with:
-  # python -c 'import crypt; print(crypt.crypt("password", "$3$SomeSalt$"))'
+  # python -c 'import crypt; print(crypt.crypt("password", "45678Hello23453SomeSalt"))'
   # above command requires the PassLib library: pip install passlib
-    - password: $3$$11111111111122222222233333333333333
+  # will throw a wanrning that password must be encrypted not hashed
+    - password: "{{ lookup('env','USER_PASSWORD') }}"
   tasks:
     - name: Create a login user
       become: yes
@@ -22,7 +23,7 @@
       authorized_key:
         user: "{{ user }}"
         state: present
-        key: "{{ lookup('file', '~/.ssh/id_rsa_key.pub') }}"
+        key: "{{ lookup('file', '~/.ssh/id_master_key.pub') }}"
     - name: Creating a file with content
       become: yes
       when: user == "remoter"
