@@ -25,7 +25,7 @@ kubectl create secret generic grafana-admin-credentials --from-file=./prometheus
 Deploy prometheus, alertmanager, grafana
 
 ```shell
-helm --kubeconfig config install -n monitoring prometheus prometheus-community/kube-prometheus-stack -f prometheus-helm/values.yaml
+helm install -n monitoring prometheus prometheus-community/kube-prometheus-stack -f prometheus-helm/values.yaml
 ```
 
 ## Uninstallation

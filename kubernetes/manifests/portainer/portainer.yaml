@@ -14,7 +14,7 @@ metadata:
   labels:
     app.kubernetes.io/name: portainer
     app.kubernetes.io/instance: portainer
-    app.kubernetes.io/version: "ce-latest-ee-2.15.0"
+    app.kubernetes.io/version: "ce-latest-ee-2.15.1"
 ---
 # Source: portainer/templates/pvc.yaml
 kind: "PersistentVolumeClaim"
@@ -28,7 +28,7 @@ metadata:
     io.portainer.kubernetes.application.stack: portainer
     app.kubernetes.io/name: portainer
     app.kubernetes.io/instance: portainer
-    app.kubernetes.io/version: "ce-latest-ee-2.15.0"
+    app.kubernetes.io/version: "ce-latest-ee-2.15.1"
 spec:
   storageClassName: nfs-csi-synologynas
   accessModes:
@@ -45,7 +45,7 @@ metadata:
   labels:
     app.kubernetes.io/name: portainer
     app.kubernetes.io/instance: portainer
-    app.kubernetes.io/version: "ce-latest-ee-2.15.0"
+    app.kubernetes.io/version: "ce-latest-ee-2.15.1"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -65,7 +65,7 @@ metadata:
     io.portainer.kubernetes.application.stack: portainer
     app.kubernetes.io/name: portainer
     app.kubernetes.io/instance: portainer
-    app.kubernetes.io/version: "ce-latest-ee-2.15.0"
+    app.kubernetes.io/version: "ce-latest-ee-2.15.1"
 spec:
   type: LoadBalancer
   ports:
@@ -95,7 +95,7 @@ metadata:
     io.portainer.kubernetes.application.stack: portainer
     app.kubernetes.io/name: portainer
     app.kubernetes.io/instance: portainer
-    app.kubernetes.io/version: "ce-latest-ee-2.15.0"
+    app.kubernetes.io/version: "ce-latest-ee-2.15.1"
 spec:
   replicas: 1
   strategy:
@@ -119,7 +119,7 @@ spec:
             claimName: portainer
       containers:
         - name: portainer
-          image: "portainer/portainer-ce:2.15.0"
+          image: "portainer/portainer-ce:2.15.1"
           imagePullPolicy: Always
           args:
           volumeMounts:
@@ -177,10 +177,10 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`portainer.local.example.com`) # create A record in pihole
+    - match: Host(`portainer.local.timmybtech.com`) # create A record in pihole
       kind: Rule
       services:
         - name: portainer
           port: 9443
   tls:
-    secretName: local-example-com-tls # or local-example-com-staging-tls
+    secretName: local-timmybtech-com-tls # or local-example-com-staging-tls

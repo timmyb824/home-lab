@@ -10,7 +10,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`grafana.local.example.com`) # create A record in pihole
+    - match: Host(`grafana.local.timmybtech.com`) # create A record in pihole
       kind: Rule
       services:
         - name: grafana
@@ -22,5 +22,5 @@ spec:
               secure: true
               sameSite: none
   tls:
-    secretName: local-example-com-tls # or local-example-com-staging-tls
+    secretName: local-timmybtech-com-tls # or local-timmybtech-com-staging-tls
 
