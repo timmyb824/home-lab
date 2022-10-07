@@ -21,3 +21,7 @@ helm upgrade -f override.yaml netdata netdata/netdata
 ## Delete everything
 
 helm delete netdata
+
+## Default storage error (remove default annotation from local-path)
+
+kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
