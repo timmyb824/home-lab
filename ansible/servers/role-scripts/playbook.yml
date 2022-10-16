@@ -3,7 +3,7 @@
   become: true
   roles:
     # - python
-    # - docker-ce
+    - docker-ce
     # - glances # make sure to update api token in config
     # - tailscale
     - prometheus

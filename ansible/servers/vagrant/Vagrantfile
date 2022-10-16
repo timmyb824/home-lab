@@ -12,9 +12,14 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "jeffnoxon/ubuntu-20.04-arm64"
 
-  config.vm.network "forwarded_port", guest: 9090, host: 9090
+  # hp-laptop
+  config.vm.box = "ubuntu/focal64"
+
+  # M1 mac
+  # config.vm.box = "jeffnoxon/ubuntu-20.04-arm64"
+
+  config.vm.network "forwarded_port", guest: 9090, host: 725
 
   # config.vm.provision "shell", inline: <<-SHELL
   #   sudo apt-get update -y
@@ -31,6 +36,6 @@ Vagrant.configure("2") do |config|
   # SHELL
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "/Users/timothybryant/DevOps-Personal/git-personal/home-lab/ansible/servers/role-scripts/playbook.yml"
+    ansible.playbook = "../role-scripts/playbook.yml"
   end
 end
