@@ -45,6 +45,7 @@ docker_yum_gpg_key: "{{ docker_repo_url }}/centos/gpg"
 # A list of users who will be added to the docker group.
 docker_users:
   - tbryant
+  # - vagrant
 
 # Docker daemon options as a dict
 docker_daemon_options:
