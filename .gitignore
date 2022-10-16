@@ -21,3 +21,5 @@ ansible/.python-version
 */__pycache__
 *.pyc
 .cache
+
+.vagrant/

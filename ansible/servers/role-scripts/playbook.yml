@@ -3,9 +3,10 @@
   become: true
   roles:
     # - python
-    - docker-ce
+    # - docker-ce
     # - glances # make sure to update api token in config
     # - tailscale
+    - prometheus
   pre_tasks:
     # - name: pause to let vagrant finish
     #   pause:

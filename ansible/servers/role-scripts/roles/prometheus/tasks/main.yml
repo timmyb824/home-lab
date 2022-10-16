@@ -1,54 +1,69 @@
----
 # tasks file for prometheus
 ---
-
 - name: prometheus | create directories
   become: true
+  become_user: "{{ user }}"
   file:
     path: "{{ item }}"
     state: directory
-    mode: 0755
+    mode: 0700
   with_items:
     - "{{ dir }}/prometheus"
 
 - name: prometheus | prometheus configuration file
   become: true
+  become_user: "{{ user }}"
   template:
     dest: "{{ dir }}/prometheus/prometheus.yml"
     force: true
     src: prometheus-prometheus-yml.j2
-    mode: 0644
+    mode: 0700
   register: prometheus_configuration
 
 - name: docker | docker-compose file
+  become: true
+  become_user: "{{ user }}"
   template:
-    dest: "{{ dir }}/prometheus/docker-compse.yml"
+    dest: "{{ dir }}/prometheus/docker-compose.yml"
     force: true
-    src: docker-docker-compose.yml.j2
-    mode: 0644
+    src: docker-docker-compose-yml.j2
+    mode: 0700
   register: docker_compose_configuration
 
-- name: prometheus | docker-python
+- name: create docker network and volume
   become: true
-  apt:
-    name: docker-python
-    state: present
+  become_user: "{{ user }}"
+  shell: "{{ item.cmd }}"
+  with_items:
+    - cmd: 'docker network create {{ prometheus_docker_network}}'
+    - cmd: 'docker volume create {{ prometheus_docker_data_volume }}'
 
-- name: prometheus | docker network
+- name: create docker containers
   become: true
-  docker_network:
-    name: "{{ prometheus_docker_network }}"
-    state: present
+  become_user: "{{ user }}"
+  shell: "{{ item.cmd }}"
+  with_items:
+    - cmd: docker compose up -d
+  args:
+    chdir: '{{ dir }}/prometheus/'
 
-- name: Create a volume
-  docker_volume:
-    name: "{{ prometheus_docker_data_volume }}"
-    state: present
+# - name: prometheus | docker network
+#   become: true
+#   docker_network:
+#     name: "{{ prometheus_docker_network }}"
+#     state: present
 
-- name: deploy Docker Compose stack
-  community.docker.docker_compose:
-    project_src: "{{ dir }}/prometheus"
-    files:
-    - docker-compse.yaml
+# - name: Create a volume
+#   docker_volume:
+#     name: "{{ prometheus_docker_data_volume }}"
+#     state: present
+
+# - name: deploy Docker Compose stack
+#   community.docker.docker_compose:
+#     project_src: "{{ dir }}/prometheus"
+#     files:
+#     - docker-compse.yml
+
+
 
 
