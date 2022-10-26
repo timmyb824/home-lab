@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+    prometheuscommunity:
+        network_mode: host
+        container_name: 'postres_exporter'
+        environment:
+            - 'DATA_SOURCE_NAME=postgresql://postgres:$PASSWORD@localhost:5432/postgres?sslmode=disable'
+        image: quay.io/prometheuscommunity/postgres-exporter
